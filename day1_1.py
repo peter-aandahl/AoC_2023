@@ -1,7 +1,7 @@
 import csv
 import re
 
-with open('day1_1.txt', newline='') as csvfile:
+with open('day1_data.txt', newline='') as csvfile:
     reader = csv.reader(csvfile, delimiter=',', quotechar='"')
     total = 0
     for row in reader:
