@@ -10,14 +10,21 @@ with open('sample2_1.txt', newline='') as csvfile:
         data = ' '.join([str(elem) for elem in row])
         game_id = data.split(':')[0].split(' ')[1]
         set_data = data.split(':')[1]
-        no_sets = set_data.count(';')
+        no_sets = set_data.count(';')+1
 
+        red = green = blue = True
         for i in range(0, no_sets):
             set = set_data.split(';')[i][1:].replace('  ', ' ').split(' ')
             set_dict = dict(map(lambda x: (set[x + 1], int(set[x])), range(len(set) - 1)[::2]))
             print(game_id, i,set_dict)
             if 'red' in set_dict.keys():
-                print(max_result['red'])
+                 red = max_result['red'] >= set_dict['red']
+            if 'green' in set_dict.keys():
+                green = max_result['green'] >= set_dict['green']
+            if 'blue' in set_dict.keys():
+                blue  = max_result['blue'] >= set_dict['blue']
 
+            if red and green and blue:
+                total = total + int(game_id)
 
-        print("Next row")
+    print(total)
