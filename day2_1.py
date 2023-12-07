@@ -1,7 +1,7 @@
 import csv
 
 
-with open('sample2_1.txt', newline='') as csvfile:
+with open('day2_data.txt', newline='') as csvfile:
     reader = csv.reader(csvfile, delimiter=',', quotechar='"')
     total = 0
     max_result = {'red': 12, 'green': 13, 'blue': 14}
@@ -16,15 +16,17 @@ with open('sample2_1.txt', newline='') as csvfile:
         for i in range(0, no_sets):
             set = set_data.split(';')[i][1:].replace('  ', ' ').split(' ')
             set_dict = dict(map(lambda x: (set[x + 1], int(set[x])), range(len(set) - 1)[::2]))
-            print(game_id, i,set_dict)
+            #print(game_id, i,set_dict)
             if 'red' in set_dict.keys():
                  red = max_result['red'] >= set_dict['red']
             if 'green' in set_dict.keys():
                 green = max_result['green'] >= set_dict['green']
             if 'blue' in set_dict.keys():
-                blue  = max_result['blue'] >= set_dict['blue']
+                blue = max_result['blue'] >= set_dict['blue']
 
-            if red and green and blue:
-                total = total + int(game_id)
+            if not(red and green and blue):
+                game_id = 0
+
+        total = total + int(game_id)
 
     print(total)
